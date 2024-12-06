@@ -14,7 +14,7 @@
 
 ## Phần 3: Database
 
-* Bảng users:
+* Bảng user:
  + id - primary key (int)
  + fullname (varchar(100))
  + email (varchar(100))
@@ -25,11 +25,29 @@
  + create_at (datetime)
  + update_at (datetime)
 
-* Bảng admin:
+* Bảng adminweb:
  + id - primary key (int)
  + email (varchar(100))
  + password (varchar(200))
  + create_at (datetime)
+
+* Bảng categories:
+ + id - primary key (int)
+ + name (varchar(100))
+ + description (text)
+ + create_at (datetime)
+ + update_at (datetime)
+
+* Bảng products: 
+ + id - primary key (int)
+ + name (varchar(100))
+ + description (text)
+ + category - foreign key(int)
+ + quantity (int)
+ + price - decimal(10, 2)
+ + image (varchar(100))
+ + create_at (datetime)
+ + update_at (datetime)
 
 * Bảng loginToken:
  + id - primary key (int)

@@ -38,7 +38,7 @@ if (!defined('_CODE')) {
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="?module=auth&action=logout">Đăng xuất</a></li>
+                    <li><a class="dropdown-item" href="?module=auth&action=logout-admin">Đăng xuất</a></li>
                 </ul>
             </div>
         </div>

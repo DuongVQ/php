@@ -193,3 +193,21 @@ function isLogin() {
 
     return $checkLogin;
 }
+
+// Hàm kiểm tra trạng thái đăng nhập Admin
+function isLoginAdmin() {
+    $checkLogin = false;
+    if(getSession('loginToken')) {
+        $tokenLogin = getSession('loginToken');
+
+        // Kiểm tra giống token trong db ko
+        $queryToken = oneRaw("SELECT user_Id FROM loginToken WHERE token = '$tokenLogin'");
+        if(!empty($queryToken)) {
+            $checkLogin = true;
+        } else {
+            removeSesion('loginToken');
+        }
+    }
+
+    return $checkLogin;
+}

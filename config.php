@@ -14,6 +14,6 @@ define('_WEB_PATH_TEMPLATES', _WEB_PATH . '/templates');
 
 // Thông tin kết nối
 const _HOST = 'localhost';
-const _USER = 'root';
-const _PASS = '';
+const _USER = 'duongvq';
+const _PASS = 'password';
 const _DB = 'manager_user';

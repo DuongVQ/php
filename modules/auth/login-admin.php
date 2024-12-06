@@ -25,15 +25,12 @@ if(isPost()) {
         $password = $filterAll['password'];
 
         // Truy vấn lấy thông tin
-        $userQuery = oneRaw("SELECT password, id FROM adminweb");
-
-        if(!empty($userQuery)) {
+        $userQuery = oneRaw("SELECT password, id, email FROM adminweb");
+        $userEmail = $userQuery['email'];
+        if(!empty($userQuery) && ($email === $userEmail)) {
             $passwordHash = $userQuery['password'];
             $userId = $userQuery['id'];
 
-            echo $password . ' ' . $passwordHash;
-            echo password_hash($userQuery['password'], PASSWORD_DEFAULT);
-            echo var_dump(password_verify($password, $passwordHash));
             // Kiểm tra mật khẩu CSDL và mật khẩu nhập vào
             if(password_verify($password, $passwordHash)) {
                 // Tạo token login
