@@ -1,6 +1,5 @@
-<!-- Danh sách sản phẩm -->
 <?php
-if(!defined('_CODE')) {
+if (!defined('_CODE')) {
     die('Access denied...');
 }
 
@@ -11,85 +10,82 @@ $data = [
 layouts('header-admin', $data);
 
 // Kiểm tra trạng thái đăng nhập
-if(!isLogin()) {
+if (!isLogin()) {
     redirect('?module=auth&action=login-admin');
 }
 
-// Truy vấn vào bảng user
-$listProduct = getRaw("SELECT * FROM products ORDER BY update_at");
+// Truy vấn lấy sản phẩm với ảnh
+$products = getRaw("SELECT p.*, c.name as category_name FROM products p LEFT JOIN categories c ON p.category = c.id ORDER BY p.id DESC");
 
-$smg = getFlashData('smg');
-$smg_type = getFlashData('smg_type');
+// Hàm lấy ảnh cho từng sản phẩm
+function getProductImages($productId) {
+    return getRaw("SELECT image_url FROM product_images WHERE product_id = $productId");
+}
 
 ?>
+
 <div class="wrapper d-flex position-relative">
     <?= layouts('slidebar') ?>
     <div class="container px-4" style="padding-top: 100px; margin-left: 250px">
-        <h2>Quản lý nhóm hàng</h2>
+        <h2>Danh sách sản phẩm</h2>
         <p>
-            <a href="?module=products&action=add" class="btn btn-success btn-sm"><i class="fa-solid fa-plus"></i> Thêm</a>
+            <a href="?module=products&action=add" class="btn btn-success btn-sm">
+                <i class="fa-solid fa-plus"></i> Thêm
+            </a>
         </p>
-        <?php 
-            if(!empty($smg)) {
-                getSmg($smg, $smg_type);
-            }
-        ?>
         <table class="table">
             <thead>
-                <th class="text-center">STT</th>
-                <th class="text-center">Mã SP</th>
-                <th class="text-center">Tên sản phẩm</th>
-                <th class="text-center">Nhóm hàng</th>
-                <th class="text-center">Số lượng</th>
-                <th class="text-center">Giá hàng</th>
-                <th class="text-center">Hình ảnh</th>
-                <th class="text-center" width="5%">Sửa</th>
-                <th class="text-center" width="5%">Xóa</th>
-            </thead>
-    
-            <tbody>
-                <?php
-                    if(!empty($listProduct)):
-                        $count = 0;
-                        foreach ($listProduct as $item):
-                            $count++;
-                ?>
                 <tr>
-                    <td class="text-center"><?= $count ?></td>
-                    <td class="text-center"><?= $item['id'] ?></td>
-                    <td class="text-center"><?= $item['name'] ?></td>
-                    <td class="text-center"><?= $item['category'] ?></td>
-                    <td class="text-center"><?= $item['quantity'] ?></td>
-                    <td class="text-center"><?= $item['price'] ?></td>
-                    <td class="text-center"><?= $item['image'] ?></td>
-                    <td class="text-center">
-                        <a href="<?= _WEB_HOST ?>?module=products&action=edit&id=<?= $item['id'] ?>" class="btn btn-warning btn-sm">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <a href="<?= _WEB_HOST ?>?module=products&action=delete&id=<?= $item['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger btn-sm">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>Giá</th>
+                    <th>Trạng thái</th>
+                    <th>Hình ảnh</th>
+                    <th>Thao tác</th>
                 </tr>
-                <?php
-                        endforeach;
-                    else:
-                ?>
+            </thead>
+            <tbody>
+                <?php if (!empty($products)): ?>
+                    <?php foreach ($products as $product): 
+                        // Lấy ảnh cho từng sản phẩm
+                        $images = getProductImages($product['id']);
+                    ?>
+                        <tr>
+                            <td><?= $product['id'] ?></td>
+                            <td><?= htmlspecialchars($product['name']) ?></td>
+                            <td><?= htmlspecialchars($product['category_name']) ?></td>
+                            <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
+                            <td><?= $product['status'] ?></td>
+                            <td>
+                                <?php if (!empty($images)): ?>
+                                    <div class="d-flex">
+                                        <?php foreach ($images as $image): ?>
+                                            <img src="<?= htmlspecialchars($image['image_url']) ?>"
+                                                 alt="<?= htmlspecialchars($product['name']) ?>"
+                                                 style="width: 100px; height: 100px; object-fit: cover; margin-right: 5px;">
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <span class="text-danger">Chưa có ảnh</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="?module=products&action=edit&id=<?= $product['id'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+                                <a href="?module=products&action=delete&id=<?= $product['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td colspan="9">
-                            <div class="alert alert-danger text-center">Không có sản phẩm nào!</div>
-                        </td>
+                        <td colspan="7" class="text-center">Không có sản phẩm nào</td>
                     </tr>
-                <?php
-                    endif;
-                ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
 </div>
 
-<?php
-layouts('footer-login');
-?>
+<?php layouts('footer-login'); ?>

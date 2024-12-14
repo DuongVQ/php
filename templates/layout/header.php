@@ -21,7 +21,8 @@ if (!defined('_CODE')) {
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/style.css?ver=1">
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/header.css?ver=2">
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/dashboard.css?ver=3">
+    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/dashboard.css?ver=1">
+    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/footer.css?ver=1">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/dist/boxicons.js" integrity="sha512-Dm5UxqUSgNd93XG7eseoOrScyM1BVs65GrwmavP0D0DujOA8mjiBfyj71wmI2VQZKnnZQsSWWsxDKNiQIqk8sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
@@ -54,7 +55,7 @@ if (!defined('_CODE')) {
                     men's pants
                     <div class="menu-header-secondary">
                         <div class="item-menu-header-secondary">jeans</div>
-                        <div class="item-menu-header-secondary">khakis</div>
+                        <div class="item-menu-header-secondary">kakis</div>
                         <div class="item-menu-header-secondary">shorts</div>
                         <div class="item-menu-header-secondary">trousers</div>
                     </div>
@@ -73,18 +74,27 @@ if (!defined('_CODE')) {
                     </a>
                 </div>
                 <div class="header-user">
-                    <a href="#" >
+                    <a href="#">
                         <button class="header-action-btn">
                             <box-icon name='user'></box-icon>
                         </button>
                     </a>
                 </div>
                 <div class="header-cart">
-                    <a href="#">
-                        <button class="header-action-btn">
-                            <box-icon name='shopping-bag' ></box-icon>
-                        </button>
-                    </a>
+                    <button class="header-action-btn" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                        <box-icon name='shopping-bag'></box-icon>
+                    </button>
+
+                    <!-- Offcanvas Sidebar -->
+                    <div class="offcanvas offcanvas-end" id="demo">
+                        <div class="offcanvas-header border-bottom">
+                            <h5 class="offcanvas-title">Giỏ hàng</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" style="font-size: 16px;"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <!-- Content -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
