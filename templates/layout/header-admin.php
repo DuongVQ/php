@@ -14,16 +14,13 @@ if (!defined('_CODE')) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/style.css?ver=3">
+    <link rel="stylesheet" href="<?php echo _WEB_HOST_TEMPLATES; ?>/css/header-admin.css?ver=2">
 </head>
 
 <body>
-    <header class="px-3 py-2 position-fixed w-100 z-1 bg-dark shadow-sm" style="z-index: 10;">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <img src="https://cdn-icons-png.flaticon.com/128/3781/3781674.png" loading="lazy" alt="Shortcut script app " title="Shortcut script app " width="50" height="50">
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="?module=home&action=about-us" class="nav-link px-2 link-body-emphasis fw-bold fs-4 text-uppercase">MY WEBSITE</a></li>
-            </ul>
+    <header class="px-4 position-fixed w-100 z-1" style="z-index: 10;">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <img src="<?php echo _WEB_HOST_TEMPLATES; ?>/image/logo.png" alt="" width="120" height="80" style="object-fit: cover;">
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search">

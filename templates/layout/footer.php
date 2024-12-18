@@ -9,7 +9,7 @@ if (!defined('_CODE')) {
         <div class="item-footer">
             <h3>Thời trang nam TORANO</h3>
             <span>
-                Hệ thống thời trang cho phái mạnh hàng đầu Việt Nam, 
+                Hệ thống thời trang cho phái mạnh hàng đầu Việt Nam,
                 hướng tới phong cách nam tính, lịch lãm và trẻ trung.
             </span>
             <div class="list-icon-contact">
@@ -20,22 +20,22 @@ if (!defined('_CODE')) {
                 </a>
                 <a href="#">
                     <div class="wrapper-icon-contact">
-                        <box-icon name='twitter' type='logo' ></box-icon>
+                        <box-icon name='twitter' type='logo'></box-icon>
                     </div>
                 </a>
                 <a href="#">
                     <div class="wrapper-icon-contact">
-                        <box-icon name='instagram' type='logo' ></box-icon>
+                        <box-icon name='instagram' type='logo'></box-icon>
                     </div>
                 </a>
                 <a href="#">
                     <div class="wrapper-icon-contact">
-                        <box-icon name='tiktok' type='logo' ></box-icon>
+                        <box-icon name='tiktok' type='logo'></box-icon>
                     </div>
                 </a>
                 <a href="#">
                     <div class="wrapper-icon-contact">
-                        <box-icon name='youtube' type='logo' ></box-icon>
+                        <box-icon name='youtube' type='logo'></box-icon>
                     </div>
                 </a>
             </div>
@@ -77,22 +77,22 @@ if (!defined('_CODE')) {
             <h3>Nhóm liên kết</h3>
             <ul class="">
                 <li>
-                    <span>Tìm kiếm</span>    
+                    <span>Tìm kiếm</span>
                 </li>
                 <li>
-                    <span>Giới thiệu</span>    
+                    <span>Giới thiệu</span>
                 </li>
                 <li>
-                    <span>Chính sách đổi trả</span>    
-                </li>  
-                <li>
-                    <span>Chính sách bảo mật</span>    
+                    <span>Chính sách đổi trả</span>
                 </li>
                 <li>
-                    <span>Tuyển dụng</span>    
+                    <span>Chính sách bảo mật</span>
                 </li>
                 <li>
-                    <span>Liên hệ</span>    
+                    <span>Tuyển dụng</span>
+                </li>
+                <li>
+                    <span>Liên hệ</span>
                 </li>
             </ul>
         </div>
@@ -108,7 +108,7 @@ if (!defined('_CODE')) {
         </div>
     </div>
     <div class="design-by">
-        Copyright © 2024 Torano. 
+        Copyright © 2024 Torano.
         <a href="https://web.facebook.com/profile.php?id=100052964461410" target="_blank">
             Powered by DuongVQ
         </a>
@@ -123,6 +123,7 @@ if (!defined('_CODE')) {
 <script src="<?php echo _WEB_HOST_TEMPLATES; ?>/js/bootstrap.min.js"></script>
 <script src="<?php echo _WEB_HOST_TEMPLATES; ?>/js/custom.js"></script>
 <script>
+    // Slide banner
     document.addEventListener("DOMContentLoaded", () => {
         const swiper = new Swiper('.banner .swiper-container', {
             loop: true,
@@ -147,6 +148,7 @@ if (!defined('_CODE')) {
         });
     });
 
+    // Slide product-catalog
     const swiper = new Swiper('.product-catalog .swiper-container', {
         slidesPerView: 4,
         spaceBetween: 30,
@@ -161,6 +163,7 @@ if (!defined('_CODE')) {
         },
     });
 
+    // Slide product sale
     const swiper2 = new Swiper('.product-sale .swiper-container', {
         slidesPerView: 5,
         spaceBetween: 30,
@@ -175,6 +178,7 @@ if (!defined('_CODE')) {
         },
     });
 
+    // Tooltip====================================================================================
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
@@ -186,7 +190,7 @@ if (!defined('_CODE')) {
 
     // Thêm sự kiện click cho mỗi tab link
     tabLinks.forEach(link => {
-        link.addEventListener('click', function () {
+        link.addEventListener('click', function() {
             // Xóa class 'active' khỏi tất cả các tab link
             tabLinks.forEach(link => link.classList.remove('active'));
             // Thêm class 'active' vào tab link được click
@@ -198,6 +202,95 @@ if (!defined('_CODE')) {
             const tabId = this.getAttribute('data-tab');
             document.getElementById(tabId).classList.add('active');
         });
+    }); // End tooltip============================================================================
+
+
+    // Modal product==============================================================================
+    document.addEventListener("DOMContentLoaded", function() {
+        const quickViewButtons = document.querySelectorAll('.quick-view');
+
+        quickViewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Lấy dữ liệu từ data-* attributes
+                const productName = this.getAttribute('data-name');
+                const productImage = this.getAttribute('data-image');
+                const productPrice = this.getAttribute('data-price');
+                const productOldPrice = this.getAttribute('data-old-price');
+                const productDiscount = this.getAttribute('data-discount');
+                const productColors = JSON.parse(this.getAttribute('data-colors'));
+                const productSizes = JSON.parse(this.getAttribute('data-sizes'));
+
+                // Gán dữ liệu vào modal
+                document.getElementById('modal-name').innerText = productName;
+                document.getElementById('modal-image').src = productImage;
+                document.getElementById('modal-price').innerText = productPrice + 'đ';
+                document.getElementById('modal-old-price').innerText = productOldPrice + 'đ';
+                document.getElementById('modal-discount').innerText = '-' + productDiscount + '%';
+
+                // Tạo nút chọn màu sắc
+                const colorsContainer = document.querySelector('#modal-colors .btn-group');
+                colorsContainer.innerHTML = ''; // Xóa nội dung cũ
+                productColors.forEach((color, index) => {
+                    const colorButton = document.createElement('button');
+                    colorButton.className = 'btn btn-outline-secondary';
+                    colorButton.innerText = color;
+                    colorButton.setAttribute('type', 'button');
+                    colorButton.setAttribute('data-color', color);
+                    if (index === 0) colorButton.classList.add('active'); // Đặt nút đầu tiên được chọn
+                    colorButton.addEventListener('click', () => {
+                        // Bỏ chọn các nút khác
+                        colorsContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                        colorButton.classList.add('active');
+                    });
+                    colorsContainer.appendChild(colorButton);
+                });
+
+                // Tạo nút chọn kích thước
+                const sizesContainer = document.querySelector('#modal-sizes .btn-group');
+                sizesContainer.innerHTML = ''; // Xóa nội dung cũ
+                productSizes.forEach((size, index) => {
+                    const sizeButton = document.createElement('button');
+                    sizeButton.className = 'btn btn-outline-secondary';
+                    sizeButton.innerText = size;
+                    sizeButton.setAttribute('type', 'button');
+                    sizeButton.setAttribute('data-size', size);
+                    if (index === 0) sizeButton.classList.add('active'); // Đặt nút đầu tiên được chọn
+                    sizeButton.addEventListener('click', () => {
+                        // Bỏ chọn các nút khác
+                        sizesContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                        sizeButton.classList.add('active');
+                    });
+                    sizesContainer.appendChild(sizeButton);
+                });
+
+                // Gán dữ liệu vào modal
+                document.getElementById("modalQuantity").value = 1; // Reset số lượng
+
+                const minusBtn = document.querySelector(".btn-quantity-minus");
+                const plusBtn = document.querySelector(".btn-quantity-plus");
+                const quantityInput = document.getElementById("modalQuantity");
+
+                // Xóa sự kiện cũ
+                minusBtn.replaceWith(minusBtn.cloneNode(true));
+                plusBtn.replaceWith(plusBtn.cloneNode(true));
+
+                // Gắn sự kiện mới
+                document.querySelector(".btn-quantity-minus").addEventListener("click", () => {
+                    let currentValue = parseInt(quantityInput.value);
+                    quantityInput.value = Math.max(1, currentValue - 1);
+                });
+
+                document.querySelector(".btn-quantity-plus").addEventListener("click", () => {
+                    let currentValue = parseInt(quantityInput.value);
+                    quantityInput.value = currentValue + 1;
+                });
+
+                // Hiển thị modal
+                const quickViewModal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+                quickViewModal.show();
+            });
+        });
     });
+
 
 </script>

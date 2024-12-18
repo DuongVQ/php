@@ -74,7 +74,20 @@ CREATE TABLE IF NOT EXISTS manager_user.product_sizes (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
-
+-- Tạo bảng CSDL giỏ hàng
+CREATE TABLE IF NOT EXISTS manager_user.cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    product_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    old_price DECIMAL(10,2) NOT NULL,
+    image_url VARCHAR(255),
+    color VARCHAR(100),
+    size_product VARCHAR(100),
+    quantity INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
 
 -- Tạo bảng CSDL token
 CREATE TABLE IF NOT EXISTS manager_user.loginToken (

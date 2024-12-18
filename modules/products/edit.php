@@ -48,6 +48,14 @@ if (isPost()) {
         $errors['price'] = 'Giá sản phẩm phải lớn hơn 0.';
     }
 
+    if (!empty($filterAll['old_price']) && $filterAll['old_price'] <= 0) {
+        $errors['old_price'] = 'Giá cũ phải lớn hơn 0.';
+    }
+    
+    if (!empty($filterAll['discount']) && ($filterAll['discount'] < 0 || $filterAll['discount'] > 100)) {
+        $errors['discount'] = 'Giảm giá phải từ 0 đến 100.';
+    }    
+
     if (empty($errors)) {
         $dataUpdate = [
             'name' => $filterAll['name'],
@@ -172,6 +180,14 @@ $old = getFlashData('old') ?? $product;
         <div class="form-group">
             <label for="price">Giá sản phẩm</label>
             <input type="number" class="form-control" id="price" name="price" value="<?= $old['price'] ?? '' ?>" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="old_price">Giá cũ</label>
+            <input type="number" class="form-control" id="old_price" name="old_price" value="<?= $old['old_price'] ?? '' ?>" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="discount">Giảm giá (%)</label>
+            <input type="number" class="form-control" id="discount" name="discount" value="<?= $old['discount'] ?? '' ?>" step="0.01" min="0" max="100">
         </div>
         <div class="form-group">
             <label for="colors">Màu sắc</label>
